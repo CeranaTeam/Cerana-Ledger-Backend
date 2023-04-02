@@ -1,0 +1,32 @@
+{
+  "name": "cerana-backend",
+  "version": "1.0.0",
+  "description": "this is cerana-backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "test-docker": "docker compose -f ./docker-compose/docker-compose-test.yml up --build",
+    "start-docker": "docker compose -f ./docker-compose/docker-compose-prod.yml up --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkLai0317/Cerana-Backend.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Mark Lai <laimark900317@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MarkLai0317/Cerana-Backend/issues"
+  },
+  "homepage": "https://github.com/MarkLai0317/Cerana-Backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  }
+}
