@@ -1,0 +1,10 @@
+version: "3"
+services:
+  prod-container:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: cerana-prod-container
+    command: sh -c "npm start"

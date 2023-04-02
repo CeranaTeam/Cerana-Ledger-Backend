@@ -1,0 +1,13 @@
+.env
+.gitignore
+.dockerignore
+.DS_Store
+
+*.log
+*.pid
+
+node_modules
+LICENSE
+README.md
+
+Dockerfile
