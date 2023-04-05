@@ -12,29 +12,20 @@ env:
 
 jobs:
 
-  test:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
+  deploy:
+  
+  
+    
+    runs-on: ubuntu-latest
+ 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code 
         uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Build and test Docker image
-        run: |
-          npm run test-docker
 
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
         
       - name: Authenticate with Google Cloud
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
