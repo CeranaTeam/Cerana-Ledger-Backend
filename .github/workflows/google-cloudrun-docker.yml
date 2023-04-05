@@ -70,6 +70,7 @@ jobs:
       - name: Start Docker container on Compute Engine instance
         run: |
           gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=us-central1-a --command="
+            echo $USER;
             sudo docker pull ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
             sudo docker stop cerana-backend-prod || true;
             sudo docker rm cerana-backend-prod || true;
