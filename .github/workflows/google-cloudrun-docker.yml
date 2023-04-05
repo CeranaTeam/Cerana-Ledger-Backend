@@ -67,28 +67,22 @@ jobs:
         with:
           credentials_json: '${{ secrets.ACCOUNT_KEY }}'
 
-      # Delete old version of image in Artifact registry to save storage space
-      - name: Delete old image
-        run: |
-          gcloud artifacts docker images delete --quiet ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest
-
-
-      # BEGIN - Docker auth and build (NOTE: If you already have a container image, these Docker steps can be omitted)
-
-      # Authenticate Docker to Google Cloud Artifact Registry
-      - name: Docker Auth
-        id: docker-auth
-        uses: 'docker/login-action@v1'
-        with:
-          username: _json_key
-          password: ${{ secrets.ACCOUNT_KEY }}
-          registry: '${{ vars.REGION }}-docker.pkg.dev'
-
-      - name: Build and Push Container
-        run: |-
-          docker build -t "${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest" ./
-          docker push "${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest"
-
       # END - Docker auth and build
+
+      # pull image from artifact registry to compute engine
+
+      - name: Start Docker container on Compute Engine instance
+        run: |
+          gcloud compute ssh ${{ var.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command='
+            sudo docker ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
+            sudo docker stop cerana-backend-prod || true;
+            sudo docker rm cerana-backend-prod || true;
+            sudo docker run -d --name cerana-backend-prod -p 8080:8080 ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest
+          '
+
+      - name: Run command inside Docker container on Compute Engine instance
+        run: |
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command='sudo docker exec -it cerana-backend-prod bash -c "npm start"'
+
 
       
