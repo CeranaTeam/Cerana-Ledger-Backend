@@ -19,9 +19,10 @@ jobs:
   
     
     runs-on: ubuntu-latest
+    environment: google_CD
  
     steps:
     
       - name: print env
-        run: echo "${{env.PROJECT_ID}}" 
+        run: echo "${{vars.PROJECT_ID}}" 
       
