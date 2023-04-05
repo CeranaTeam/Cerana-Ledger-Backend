@@ -74,14 +74,14 @@ jobs:
         id: docker-auth
         uses: 'docker/login-action@v1'
         with:
-          username: 'oauth2accesstoken'
-          password: '${{ steps.auth.outputs.access_token }}'
-          registry: '${{ vars.REGION }}-docker.pkg.dev'
+          username: _json_key
+          password: ${{ secrets.ACCOUNT_KEY }}
+          registry: '${{ vars.RIGION }}-docker.pkg.dev'
 
       - name: Build and Push Container
         run: |-
-          docker build -t "${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.IMAGE_NAME }}:latest ./
-          docker push "${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.IMAGE_NAME }}:latest"
+          docker build -t "${{ vars.RIGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.IMAGE_NAME }}:latest ./
+          docker push "${{ vars.RIGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.IMAGE_NAME }}:latest"
 
       # END - Docker auth and build
 
