@@ -80,8 +80,8 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build -t "${{ vars.RIGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.IMAGE_NAME }}:latest" ./
-          docker push "${{ vars.RIGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.IMAGE_NAME }}:latest"
+          docker build -t "${{ vars.RIGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest" ./
+          docker push "${{ vars.RIGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest"
 
       # END - Docker auth and build
 
