@@ -27,7 +27,7 @@ describe('The fist hello world test', () => {
 
             const response = await request(app).get('/');
             expect(response.statusCode).toBe(200);
-            expect(response.body).toMatchObject({ message: 'Hello world!' });
+            expect(response.body).toMatchObject({ message: 'this is the test of CD' });
             expect(response.headers['content-type']).toEqual(
                 expect.stringContaining('application/json')
             );
