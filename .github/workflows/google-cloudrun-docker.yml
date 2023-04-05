@@ -67,11 +67,15 @@ jobs:
         with:
           credentials_json: '${{ secrets.ACCOUNT_KEY }}'
 
-      # END - Docker auth and build
-      - id: 'compute-ssh'
-        uses: 'google-github-actions/ssh-compute@v0'
-        with:
-          instance_name: instance-1
-          zone: 'us-central1-a'
-          ssh_private_key: '${{ secrets.GCP_SSH_PRIVATE_KEY }}'
-          command: 'echo Hello world'
+      - name: Start Docker container on Compute Engine instance
+        run: |
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=us-central1-a --command="
+            sudo docker ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
+            sudo docker stop cerana-backend-prod || true;
+            sudo docker rm cerana-backend-prod || true;
+            sudo docker run -d --name cerana-backend-prod -p 8080:8080 ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest
+          "
+      - name: Run command inside Docker container on Compute Engine instance
+        run: |
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=us-central1-a --command='sudo docker exec cerana-backend-prod bash -c "npm start"'
+
