@@ -72,7 +72,7 @@ jobs:
       # pull image from artifact registry to compute engine
 
       - name: Start Docker container on Compute Engine instance
-        run: |
+        run: |-
           gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command='
             sudo docker ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
             sudo docker stop cerana-backend-prod || true;
