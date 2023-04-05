@@ -71,18 +71,17 @@ jobs:
 
       # pull image from artifact registry to compute engine
 
+   
       - name: Start Docker container on Compute Engine instance
-        run: >
-          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command='
-            sudo docker ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
-            sudo docker stop cerana-backend-prod || true;
-            sudo docker rm cerana-backend-prod || true;
-            sudo docker run -d --name cerana-backend-prod -p 8080:8080 ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest
-          '
+        run: |
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command="sudo docker pull ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest"
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command="sudo docker stop my-container || true"
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command="sudo docker rm my-container || true"
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command="sudo docker run -d --name cerana-backend-prod -p 8080:8080 ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest"
 
       - name: Run command inside Docker container on Compute Engine instance
         run: |
-          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command='sudo docker exec -it cerana-backend-prod bash -c "npm start"'
+          gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=${{ vars.REGION }} --command='sudo docker exec cerana-backend-prod bash -c "npm start"'
 
 
       
