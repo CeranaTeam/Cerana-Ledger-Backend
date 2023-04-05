@@ -5,7 +5,7 @@ app.use(express.json());
 
 app.get('/', function(req, res) {
   res.status(200).json({
-    "message":"Hello world!"
+    "message":"this is the test of CD"
   });
 });
 
