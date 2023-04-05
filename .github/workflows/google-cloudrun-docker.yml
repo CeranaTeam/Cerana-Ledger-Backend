@@ -69,6 +69,8 @@ jobs:
 
       - name: Start Docker container on Compute Engine instance
         run: |
+          gcloud auth activate-service-account --key-file=/keyfile.json
+          gcloud auth configure-docker ${{vars.REGION}}-docker.pkg.dev --quiet
           gcloud compute ssh ${{ vars.INSTANCE_NAME }} --zone=us-central1-a --command="
             echo $USER;
             docker pull ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
