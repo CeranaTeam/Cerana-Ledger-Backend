@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  PROJECT_ID: ${{envs.PROJECT_ID}}
+  PROJECT_ID: ${{vars.PROJECT_ID}}
   IMAGE_NAME: ${{vars.IMAGE_NAME}}
   INSTANCE_NAME: ${{vars.INSTANCE_NAME}}
   REGION: ${{vars.REGION}}
