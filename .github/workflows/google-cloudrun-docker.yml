@@ -116,9 +116,9 @@ jobs:
             echo $USER;
             gcloud auth activate-service-account --key-file=/keyfile.json;
             gcloud auth configure-docker ${{vars.REGION}}-docker.pkg.dev --quiet;
-            docker image rm ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
-            docker pull ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
             sudo docker stop cerana-backend-prod || true;
             sudo docker rm cerana-backend-prod || true;
+            docker image rm ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
+            docker pull ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
             sudo docker run -d --name cerana-backend-prod -p 8080:8080 ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest npm start
           "
