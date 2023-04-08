@@ -4,10 +4,12 @@
   "description": "this is cerana-backend",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "start": "node server.js",
+    "test": "jest --dotenv=.test.env",
+    "start": "node server.js --dotenv=.prod.env",
+    "start-local": "node server.js --dotenv=.local.env",
     "test-docker": "docker compose -f ./docker-compose/docker-compose-test.yml up --build",
-    "start-docker": "docker compose -f ./docker-compose/docker-compose-prod.yml up --build"
+    "start-docker": "docker compose -f ./docker-compose/docker-compose-prod.yml up --build",
+    "start-local-docker": "docker compose -f ./docker-compose/docker-compose-local.yml up --build"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,9 @@
   },
   "homepage": "https://github.com/MarkLai0317/Cerana-Backend#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "yargs": "^17.7.1"
   },
   "devDependencies": {
     "jest": "^29.5.0",
