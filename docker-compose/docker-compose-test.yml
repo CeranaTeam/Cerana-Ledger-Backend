@@ -1,6 +1,8 @@
 version: "3"
 services:
   test-container:
+    env_file:
+      - ../.env/.test.env
     build:
       context: ../
       dockerfile: Dockerfile
