@@ -61,6 +61,11 @@ jobs:
       - name: Checkout code 
         uses: actions/checkout@v3
 
+      - name: Create env file
+        run: |
+          mkdir -p .env && touch .env/.test.env
+          echo "${{secrets.TEST_ENV}}" > .env/.test.env
+
       # Runs a single command using the runners shell
       - name: Build and test Docker image
         run: |
@@ -120,5 +125,5 @@ jobs:
             sudo docker rm cerana-backend-prod || true;
             docker image rm ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
             docker pull ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest;
-            sudo docker run -d --name cerana-backend-prod -p 8080:8080 ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest npm start
+            sudo docker run -d --name cerana-backend-prod -p 8080:8080 --env-file .env/.prod.env ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest npm start
           "
