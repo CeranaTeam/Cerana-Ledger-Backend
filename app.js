@@ -17,11 +17,11 @@ const argv = yargs.options({
 dotenv.config({ path: './.env/' + argv.dotenv });
 console.log("this is arg", process.env.ENV_NAME)
 
-app.get('/', function(req, res) {
-    res.status(200).json({
-        "message":"this is the test of CD"
-    });
-});
+
+const hello = (require('./src/routes/hello.js'))({})
+
+app.use(hello)
+
 
 module.exports = app;
 
