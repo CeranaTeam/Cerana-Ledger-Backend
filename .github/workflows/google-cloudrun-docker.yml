@@ -111,7 +111,7 @@ jobs:
       # Delete old version of image in Artifact registry to save storage space
       - name: Delete old image
         run: |
-          gcloud artifacts docker images delete --quiet ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest
+          gcloud artifacts docker images delete --quiet ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/cerana-backend/${{ vars.IMAGE_NAME }}:latest || true
 
 
       # BEGIN - Docker auth and build (NOTE: If you already have a container image, these Docker steps can be omitted)
