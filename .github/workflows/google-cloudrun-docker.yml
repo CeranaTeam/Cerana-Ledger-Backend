@@ -70,7 +70,7 @@ jobs:
         id: add-secrets
         run: |
           mkdir -p secrets && touch secrets/serviceAccountKey.json
-          echo "${{secrets.FIREBASE_KEY}}" > secrets/serviceAccountKey.json
+          echo "${{secrets.FIREBASE_KEY}}" | base64 --decode > secrets/serviceAccountKey.json
 
       # Runs a single command using the runners shell
       - name: Build and test Docker image
