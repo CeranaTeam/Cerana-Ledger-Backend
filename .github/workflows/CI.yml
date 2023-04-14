@@ -30,6 +30,12 @@ jobs:
         run: |
           mkdir -p .env && touch .env/.test.env
           echo "${{secrets.TEST_ENV}}" > .env/.test.env
+      
+      - name: add secrets to repo
+        id: add-secrets
+        run: |
+          mkdir -p secrets && touch secrets/serviceAccountKey.json
+          echo "${{secrets.FIREBASE_KEY}}" > secrets/serviceAccountKey.json
 
       # Runs a single command using the runners shell
       - name: Build and test Docker image
