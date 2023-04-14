@@ -79,10 +79,10 @@ jobs:
 
       - name: Check Jest exit code
         run: |
-          if [ $? -eq 0 ]; then
+          if tail -n 1 $(docker ps -aqf "name=cerana-test-container") | grep -q 'cerana-test-container exited with code 0'; then
             echo "Docker container exited with status code 0"
           else
-            echo "Docker container exited with status code $?"
+            echo "Docker container exited with a non-zero status code"
             exit 1
           fi
         
