@@ -40,7 +40,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build and test Docker image
         run: |
-          npm run test-docker > logfile.txt
+          npm run test-docker | tee logfile.txt
 
       - name: check logfile.txt
         run: |
