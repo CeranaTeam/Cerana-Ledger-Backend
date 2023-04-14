@@ -76,6 +76,16 @@ jobs:
       - name: Build and test Docker image
         run: |
           npm run test-docker
+
+      - name: Check Jest exit code
+        run: |
+          if [ $? -ne 0 ]; then
+            echo "Jest tests failed"
+            exit 1
+          else
+            echo "Jest tests passed"
+          fi
+        
   deploy:
 
     needs: test
