@@ -30,9 +30,26 @@ jobs:
         run: |
           mkdir -p .env && touch .env/.test.env
           echo "${{secrets.TEST_ENV}}" > .env/.test.env
+      
+      - name: add secrets to repo
+        id: add-secrets
+        run: |
+          mkdir -p secrets && touch secrets/serviceAccountKey.json
+          echo "${{secrets.FIREBASE_KEY}}" | base64 --decode > secrets/serviceAccountKey.json
 
       # Runs a single command using the runners shell
       - name: Build and test Docker image
         run: |
-          npm run test-docker
+          npm run test-docker | tee logfile.txt
 
+      - name: check logfile.txt
+        run: |
+          cat logfile.txt
+
+      - name: Check Jest exit code
+        run: |
+          last_line=$(tail -n 1 logfile.txt)
+          if [[ "$last_line" != *"cerana-test-container exited with code 0"* ]]; then
+            echo "Error: cerana-test-container did not exit with code 0"
+            exit 1
+          fi

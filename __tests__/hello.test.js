@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../app.js');
+const app = require('../src/app.js');
 
 
 describe('The fist hello world test', () => {
@@ -22,13 +22,14 @@ describe('The fist hello world test', () => {
     });
     
     
-    describe('GET /', () => {
+    describe('GET /hello', () => {
 
         test('responds with JSON with 200', async () => {
 
-            const response = await request(app).get('/');
+            const user = 'Mark'
+            const response = await request(app).get('/hello').query({ user: user });;
             expect(response.statusCode).toBe(200);
-            expect(response.body).toMatchObject({ message: 'this is the test of CD' });
+            expect(response.body).toMatchObject({ message: `this is the test of ${user}` });
             expect(response.headers['content-type']).toEqual(
                 expect.stringContaining('application/json')
             );
