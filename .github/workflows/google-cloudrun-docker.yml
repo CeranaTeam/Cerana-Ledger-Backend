@@ -75,14 +75,13 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build and test Docker image
         run: |
-          npm run test-docker
+          npm run test-docker > logfile.txt
 
       - name: Check Jest exit code
         run: |
-          if tail -n 1 $(docker ps -aqf "name=cerana-test-container") | grep -q 'cerana-test-container exited with code 0'; then
-            echo "Docker container exited with status code 0"
-          else
-            echo "Docker container exited with a non-zero status code"
+          last_line=$(tail -n 1 logfile.txt)
+          if [[ "$last_line" != *"cerana-test-container exited with code 0"* ]]; then
+            echo "Error: cerana-test-container did not exit with code 0"
             exit 1
           fi
         
