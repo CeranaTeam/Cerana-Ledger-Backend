@@ -3,31 +3,31 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-const express = require('express');
+const express = require("express");
 const app = express();
 app.use(express.json());
 
 
 // ======= use swagger =========
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('../swagger-config.js');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("../swagger-config.js");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // ==============================
 
 // ===== use .env arguments =====
-const dotenv = require('dotenv')
-const yargs = require('yargs');
+const dotenv = require("dotenv");
+const yargs = require("yargs");
 
 const argv = yargs.options({
-        dotenv: {
-            default: '.env.test',
-            describe: 'Path to environment file',
-            type: 'string'
-        }
-    }).argv;
+  dotenv: {
+    default: ".env.test",
+    describe: "Path to environment file",
+    type: "string"
+  }
+}).argv;
 
 
-const env_path = path.resolve(__dirname, "../.env", argv.dotenv)
+const env_path = path.resolve(__dirname, "../.env", argv.dotenv);
 dotenv.config({ path: env_path});
 console.log("this is arg", process.env.ENV_NAME);
 // ================================
@@ -73,7 +73,7 @@ app.use("/product", require("./routes/product.js"));
 app.use("/order", require("./routes/order.js"));
 app.use("/preorder", require("./routes/preorder.js"));
 app.use("/statistic", require("./routes/statistic.js"));
-app.use('/hello',require("./routes/hello.js"));
+app.use("/hello",require("./routes/hello.js"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

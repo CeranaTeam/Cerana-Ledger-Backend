@@ -24,7 +24,7 @@ const getUserProfile = async (req, res) => {
     }
   } catch (err) {
     console.error("\n********** Get User Profile Error **********\n", err);
-    res.status(srr.status || 500).json({ message: err.message });
+    res.status(err.status || 500).json({ message: err.message });
   }
 };
 
