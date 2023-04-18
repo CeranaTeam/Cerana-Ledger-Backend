@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 
@@ -31,11 +31,11 @@ const router = express.Router();
  *     tags:
  *       - Greetings
  */
-router.get('/', function(req, res) {
-    const user = req.query.user
-    res.status(200).json({
-        "message":`this is the test of ${user}`
-    });
+router.get("/", function(req, res) {
+  const user = req.query.user;
+  res.status(200).json({
+    "message":`this is the test of ${user}`
+  });
 });
 
-module.exports = router
+module.exports = router;

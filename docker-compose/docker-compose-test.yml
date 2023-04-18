@@ -7,4 +7,4 @@ services:
       context: ../
       dockerfile: Dockerfile
     container_name: cerana-test-container
-    command: sh -c "npm test"
+    command: sh -c "npm install --save-dev jest; npm test"

@@ -4,6 +4,8 @@
   "description": "this is cerana-backend",
   "main": "server.js",
   "scripts": {
+    "eslint": "npx eslint .",
+    "eslint-fix": "npx eslint . --fix",
     "test": "jest --dotenv=.test.env",
     "test-local": "jest --dotenv=.local.env",
     "start": "node server.js --dotenv=.prod.env",
@@ -46,6 +48,7 @@
     "yargs": "^17.7.1"
   },
   "devDependencies": {
+    "eslint": "^8.38.0",
     "jest": "^29.5.0",
     "supertest": "^6.3.3"
   }
