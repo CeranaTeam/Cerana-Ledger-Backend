@@ -7,8 +7,8 @@ const auth = async (req, res, next) => {
       req.middleware = {
         userId: "00fkXxesFNbzzXFc5T2GGwQZBOx1",
         userEmail: "waketodo@gmail.com"
-      }
-      return next()
+      };
+      return next();
     }
     else{
       const authorizationHeader = req.headers.authorization || "";
