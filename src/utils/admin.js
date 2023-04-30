@@ -1,7 +1,7 @@
 var admin = require("firebase-admin");
-
-
-var serviceAccount = require(process.env.FIREBASE_ADMIN_SDK_PATH);
+const path = require("path");
+const sdkPath = path.resolve(__dirname, process.env.FIREBASE_ADMIN_SDK_PATH);
+var serviceAccount = require(sdkPath);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
