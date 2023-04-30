@@ -20,7 +20,7 @@ const yargs = require("yargs");
 
 const argv = yargs.options({
   dotenv: {
-    default: ".env.test",
+    default: ".test.env",
     describe: "Path to environment file",
     type: "string"
   }
