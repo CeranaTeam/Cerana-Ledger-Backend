@@ -7,9 +7,10 @@
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint . --fix",
     "test": "jest --dotenv=.test.env",
+    "test-watch":"jest --dotenv=.test.env --watchAll",
     "test-local": "jest --dotenv=.local.env",
-    "start": "node server.js --dotenv=.prod.env",
-    "start-local": "node server.js --dotenv=.local.env",
+    "start": "node bin/server.js --dotenv=.prod.env",
+    "start-local": "node bin/server.js --dotenv=.local.env",
     "test-docker": "docker compose -f ./docker-compose/docker-compose-test.yml up --build",
     "start-docker": "docker compose -f ./docker-compose/docker-compose-prod.yml up --build",
     "start-local-docker": "docker compose -f ./docker-compose/docker-compose-local.yml up --build"
