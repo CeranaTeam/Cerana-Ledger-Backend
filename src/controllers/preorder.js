@@ -13,7 +13,6 @@ const getPreorderForm = async (req, res) => {
     let preorderForm = new resPreorderFormDTO(storeName, products);
     preorderForm.validate();
     preorderForm = preorderForm.toLowerCamelCase();
-    console.log({ preorderForm: preorderForm, message: "success"});
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.status(200).json({ preorderForm: preorderForm, message: "success"});
   } catch (err) {

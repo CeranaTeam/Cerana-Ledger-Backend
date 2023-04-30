@@ -46,6 +46,7 @@ describe('/preorder/customer test', () => {
         productName: expect.any(String),
         productPrice: expect.any(Number),
         productSpec: expect.any(String),
+        productTypeId: expect.any(String),
         productType: expect.any(String),
       });
       // expect(response.body).toEqual(

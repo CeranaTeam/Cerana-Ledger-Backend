@@ -14,6 +14,7 @@ class resPreorderFormDTO {
       this.products[i].productName = this.products[i].product_name;
       this.products[i].productPrice = this.products[i].product_price;
       this.products[i].productSpec = this.products[i].product_spec;
+      this.products[i].productTypeId = this.products[i].type_id;
       this.products[i].productType = this.products[i].type_name;
       delete this.products[i].product_id;
       delete this.products[i].product_name;

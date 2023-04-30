@@ -2,7 +2,7 @@ const { poolQuery } = require("../utils/mariadb");
 
 
 const getAllProducts = async (userId) => {
-  const query =  `SELECT p.product_id, p.product_name, p.product_price, p.product_spec, t.type_name
+  const query =  `SELECT p.product_id, p.product_name, p.product_price, p.product_spec, t.type_id, t.type_name
                   FROM (
                     SELECT *
                     FROM product
