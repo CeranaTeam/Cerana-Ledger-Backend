@@ -23,4 +23,43 @@ const poolQuery = async (query, params) => {
   }
 };
 
-module.exports = { poolQuery };
+class PoolTransaction {
+  
+  #conn;
+
+  get conn() {
+    throw new Error("Access denied");
+  }
+
+  set conn(value) {
+    throw new Error("Access denied");
+  }
+
+
+  async beginTransaction(){
+    this.#conn = await pool.getConnection();
+    await this.#conn.beginTransaction();
+  }
+  
+  async query(query, params){
+
+    if (!params) params = [];
+    const rows = await this.#conn.query(query, params);
+    return rows[0];
+  }
+
+  async commit(){
+    await this.#conn.commit();
+  }
+
+  async rollback(){
+    await this.#conn.rollback();
+  }
+
+  releaseTransaction(){
+    this.#conn.release();
+  }
+}
+
+
+module.exports = { poolQuery, PoolTransaction};

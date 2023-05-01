@@ -1,4 +1,4 @@
-const { poolQuery } = require("../utils/mariadb");
+const { poolQuery, PoolTransaction } = require("../utils/mariadb");
 
 
 const getAllProducts = async (userId) => {
@@ -19,4 +19,46 @@ const getAllProducts = async (userId) => {
   }
 };
 
-module.exports = { getAllProducts };
+const createPreorder = async (preorder, products) => {
+
+  const preorderQuery = `INSERT INTO preorder SET ?`;
+  const preorderParam = [preorder];
+
+  const preorderProductQuery = "INSERT INTO preorder_product (preorder_id, product_id, amount) VALUES ? ;";
+  const preorderProductParam = [products];
+  console.log(products);
+
+  const poolTransaction = new PoolTransaction();
+  
+  try {
+    await poolTransaction.beginTransaction();
+
+    const results = [];
+    let result;
+    
+    result = await poolTransaction.query(preorderQuery, preorderParam);
+    results.push(result);
+
+    result = await poolTransaction.query(preorderProductQuery, preorderProductParam);
+    results.push(result);
+
+    await poolTransaction.commit();
+    console.log("add prorder success");
+    return result;
+
+  } catch (err) {
+    await poolTransaction.rollback();
+    console.error("Error creating preorder :", err);
+    throw err;
+  } finally {
+    poolTransaction.releaseTransaction();
+  }
+};
+
+
+
+
+
+
+
+module.exports = { getAllProducts, createPreorder };
