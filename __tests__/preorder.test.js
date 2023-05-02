@@ -136,6 +136,7 @@ describe('/preorder/customer test', () => {
 
       const preorderProducts = (await global.connection.query('SELECT * FROM preorder_product WHERE preorder_id = ?', preorderId))[0];
 
+      expect(preorderProducts.length).toBeGreaterThan(0);
       preorderProducts.forEach(preorderProduct => {
         expect(preorderProduct).toMatchObject({
           preorder_id: expect.any(String),
