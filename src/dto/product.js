@@ -17,7 +17,6 @@ class ProductDTO {
   async toSQL() {
     try {
       const typeId = await createType(this.productType, this.userId);
-      console.log("after create type\n");
       const result = {
         product_id: this.productId,
         user_id: this.userId,
@@ -27,7 +26,6 @@ class ProductDTO {
         product_spec: this.productSpec,
         product_enable: this.productEnable
       };
-      console.log(result);
       return result;
     } catch (err) {
       throw err;

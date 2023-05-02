@@ -63,7 +63,6 @@ const createProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const { userId } = req.middleware;
   const { productId } = req.params;
-  console.log(productId);
   try {
     const productIsExist = await productModel.isExistById(productId, userId);
     if (!productIsExist) {
@@ -106,10 +105,18 @@ const updateProduct = async (req, res) => {
       return;
     } 
     const productDTO = plainToClass(ProductDTO, product);
-
+    await productDTO.validate();
+    const productSQL = await productDTO.toSQL();
+    const result = await productModel.update(productSQL);
+    if (result.affectedRows === 1) {
+      res.status(200).json({ message: "成功更新商品" });
+    } else {
+      res.status(409).json({ message: "更新商品失敗" });
+    }
   } catch (err) {
-    throw err;
+    console.error("\n************ Update Product Error **********\n", err);
+    res.status(err.status || 500).json({ message: err.message });
   }
-
 };
+
 module.exports = { getProductList, createProduct, deleteProduct, updateProduct };

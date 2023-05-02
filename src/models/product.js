@@ -71,7 +71,6 @@ const createType = async (typeName, userId) => {
 const create = async (product) => {
   const query = "INSERT INTO product SET ?";
   const params = [product];
-  console.log();
   try {
     const result = await poolQuery(query, params);
     return result;
@@ -91,4 +90,23 @@ const remove = async (userId, productId) => {
   }
 };
 
-module.exports = { getAll, isExistByNameSpec, isExistById, createType, create , remove };
+const update = async(product) => {
+  const query = `UPDATE product SET ? WHERE product_id = ?`;
+  const params = [product, product.product_id];
+  try {
+    const result = await poolQuery(query, params);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { 
+  getAll,
+  isExistByNameSpec, 
+  isExistById, 
+  createType, 
+  create , 
+  remove, 
+  update 
+};
