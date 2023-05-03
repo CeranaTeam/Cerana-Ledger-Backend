@@ -44,4 +44,15 @@ const isExist = async (userId) => {
   }
 };
 
-module.exports = { getById, create, update, isExist };
+const getStoreName = async (userId) => {
+  const query = `SELECT store_name FROM user WHERE user_id = ?`;
+  const params = [userId];
+  try {
+    const result = await poolQuery(query, params);
+    return result[0].store_name;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { getById, create, update, isExist, getStoreName };
