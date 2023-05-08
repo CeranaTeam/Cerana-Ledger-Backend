@@ -55,10 +55,60 @@ const createPreorder = async (preorder, products) => {
   }
 };
 
+const getPreorders = async (userId) => {
+  const query = `SELECT preorder_id, preorder_contact, preorder_note, preorder_pick_up_time
+                         FROM preorder
+                         WHERE user_id = ? AND preorder_is_picked = 0`;
+  const params = [userId];
+  
+  const result = await poolQuery(query, params);
+  return result;
+                        
+};
+
+const getPreorderProducts = async (preorderId) => {
+  const query = `SELECT p.product_id, product_name, type_name as product_type, product_spec, product_price, amount
+                 FROM (
+                   SELECT product_id, amount
+                   FROM preorder_product
+                   WHERE  preorder_id = ?
+                 ) pp
+                 JOIN product p ON p.product_id = pp.product_id
+                 JOIN type t ON t.type_id = p.type_id`;
+  const params = [preorderId];
+  const result = await poolQuery(query, params);
+  return result;
+};
+
+const completePreorder = async (preorderId) => {
+  const query = `UPDATE preorder
+                 SET preorder_is_picked = 1
+                 WHERE preorder_id = ?`;
+  const params = [preorderId];
+  
+  const result = await poolQuery(query, params);
+  return result;
+};
+
+const rejectPreorder = async (preorderId) => {
+  const query = `DELETE FROM preorder WHERE preorder_id = ?`;
+  const params = [preorderId];
+  
+  const result = await poolQuery(query, params);
+  return result;
+};
 
 
 
 
 
 
-module.exports = { getAllProducts, createPreorder };
+
+module.exports = { 
+  getAllProducts, 
+  createPreorder, 
+  getPreorders, 
+  getPreorderProducts, 
+  completePreorder,
+  rejectPreorder
+};
