@@ -71,4 +71,65 @@ class ReqPreorderDTO {
   }
 }
 
-module.exports = { ResPreorderFormDTO, ReqPreorderDTO};
+class ResPreorderDTO {
+  constructor(preorders) {
+    
+    this.preorders = preorders;
+  }
+
+  toLowerCamelCase() {
+    for(let i = 0; i < this.preorders.length; i++) {
+      this.preorders[i].preorderId = this.preorders[i].preorder_id;
+      this.preorders[i].preorderContact = this.preorders[i].preorder_contact;
+      this.preorders[i].preorderNote = this.preorders[i].preorder_note;
+      this.preorders[i].preorderPickUpTime = this.preorders[i].preorder_pick_up_time;
+    
+      delete this.preorders[i].preorder_id;
+      delete this.preorders[i].preorder_contact;
+      delete this.preorders[i].preorder_note;
+      delete this.preorders[i].preorder_pick_up_time;
+     
+    }
+    return this.preorders;
+    
+  }
+
+  async validate() {
+    if (!isNotEmpty(this.preorders)) throw new Error("products is empty");
+  }
+}
+
+class ResPreorderProductsDTO {
+  constructor(products) {
+    
+    this.products = products;
+  }
+
+  toLowerCamelCase() {
+    for(let i = 0; i < this.products.length; i++) {
+      this.products[i].productId = this.products[i].product_id;
+      this.products[i].productName = this.products[i].product_name;
+      this.products[i].productPrice = this.products[i].product_price;
+      this.products[i].productSpec = this.products[i].product_spec;
+      this.products[i].productType = this.products[i].product_type;
+      
+      delete this.products[i].product_id;
+      delete this.products[i].product_name;
+      delete this.products[i].product_price;
+      delete this.products[i].product_spec;
+      delete this.products[i].product_type;
+     
+    }
+    return this.products;
+    
+  }
+
+  async validate() {
+    if (!isNotEmpty(this.products)) throw new Error("products is empty");
+  }
+}
+
+
+
+
+module.exports = { ResPreorderFormDTO, ReqPreorderDTO, ResPreorderDTO, ResPreorderProductsDTO};

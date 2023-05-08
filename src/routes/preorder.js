@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
+const { auth } = require("../middleware/auth");
 const preorderController = require("../controllers/preorder");
+
 
 
 /**
@@ -160,4 +162,9 @@ router.post("/", preorderController.createPreorder);
  */
 router.get("/customer/:userId", preorderController.getPreorderForm);
 
+router.get("/store", auth, preorderController.getPreorders);
+
+router.head("/complete/:preorderId", auth, preorderController.completePreorder);
+
+router.head("/reject/:preorderId", auth, preorderController.rejectPreorder);
 module.exports = router;
