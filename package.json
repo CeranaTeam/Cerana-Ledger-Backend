@@ -6,8 +6,8 @@
   "scripts": {
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint . --fix",
-    "test": "jest --dotenv=.test.env --forceExit",
-    "test-watch":"jest --dotenv=.test.env --watchAll",
+    "test": "jest --runInBand --forceExit",
+    "test-watch": "jest --dotenv=.test.env --watchAll",
     "test-local": "jest --dotenv=.local.env",
     "start": "node bin/server.js --dotenv=.prod.env",
     "start-local": "node bin/server.js --dotenv=.local.env",
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/MarkLai0317/Cerana-Backend#readme",
   "dependencies": {
+    "axios": "^1.4.0",
     "body-parser": "^1.20.1",
     "class-transformer": "^0.5.1",
     "cookie-parser": "~1.4.4",
