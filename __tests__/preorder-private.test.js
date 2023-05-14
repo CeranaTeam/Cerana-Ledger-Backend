@@ -46,14 +46,15 @@ describe("/preorder/store test", () => {
     await global.connection.end();
 
     // use this in future
-    await global.db.init(global.userId)
+    await global.db.teardown(global.userId);
+    await global.db.init(global.userId);
     await global.db.disconnect();
   });
 
 
   beforeEach(async () => {
 
-    await global.db.teardown();
+    await global.db.teardown(global.userId);
     await global.db.init(global.userId);
 
     if(expect.getState().currentTestName === "/preorder/store test HEAD /preorder/complete respond with JSON with 200"){
@@ -86,7 +87,7 @@ describe("/preorder/store test", () => {
     }
     // Teardown code after each test
 
-    await global.db.teardown();
+    await global.db.teardown(global.userId);
   });
 
 
