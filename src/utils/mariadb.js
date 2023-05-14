@@ -17,6 +17,7 @@ const poolQuery = async (query, params) => {
     const rows = await conn.query(query, params);
     return rows[0];
   } catch (err) {
+    console.log(err);
     throw err;
   } finally {
     if (conn) conn.release();
