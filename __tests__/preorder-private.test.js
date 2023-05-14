@@ -32,7 +32,7 @@ describe("/preorder/store test", () => {
     // firebase IdToken
     global.userId = "00fkXxesFNbzzXFc5T2GGwQZBOx1";
     global.firebaseMock = new FirebaseMock;
-    global.IdToken = await global.firebaseMock.createIdTokenfromCustomToken("00fkXxesFNbzzXFc5T2GGwQZBOx1");
+    global.idToken = await global.firebaseMock.createIdTokenfromCustomToken("00fkXxesFNbzzXFc5T2GGwQZBOx1");
     
     global.db = new MysqlDB;
     await global.db.connect();

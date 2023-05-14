@@ -27,10 +27,12 @@ class FirebaseMock {
         json: true,
       });
       console.log(res.data.idToken);
+      // using res.data.idToken
+
   
      
       
-      return res.data.IdToken;
+      return res.data.idToken;
   
     } catch (e) {
       console.log(e.request);
