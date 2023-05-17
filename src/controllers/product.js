@@ -14,6 +14,7 @@ const getProductList = async (req, res) => {
       const product = {
         productId: row.product_id,
         productName: row.product_name,
+        productSpec: row.product_spec,
         productType: row.type_name,
         productPrice: row.product_price
       };
@@ -50,7 +51,10 @@ const createProduct = async (req, res) => {
     const productSQL = await productDTO.toSQL();
     const result = await productModel.create(productSQL);
     if (result.affectedRows === 1) {
-      res.status(200).json({ message: "成功新增商品" });
+      res.status(200).json({ 
+        message: "成功新增商品",
+        productId: productSQL.product_id 
+      });
     } else {
       res.status(409).json({ message: "新增商品失敗" });
     }

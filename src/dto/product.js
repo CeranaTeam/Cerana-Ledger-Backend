@@ -1,63 +1,58 @@
-const { isNotEmpty, isString, isInt } = require("../utils/validator");
-const { createType } = require("../models/product");
-const { HttpError } = require("../utils/httpError");
-const { v4: uuidv4 } = require("uuid");
+const { poolQuery } = require("../utils/mariadb");
 
-class ProductDTO {
-  constructor(userId, productType, productName, productPrice, productSpec) {
-    this.productId = uuidv4();
-    this.userId = userId;
-    this.productType = productType;
-    this.productName = productName;
-    this.productPrice = productPrice;
-    this.productSpec = productSpec;
-    this.productEnable = 1;
+const getById = async (userId) => {
+  const query = `SELECT * FROM user WHERE user_id = ?`;
+  const params = [userId];
+  try {
+    const result = await poolQuery(query, params);
+    return result;
+  } catch (err) {
+    throw err;
   }
+};
 
-  async toSQL() {
-    try {
-      const typeId = await createType(this.productType, this.userId);
-      const result = {
-        product_id: this.productId,
-        user_id: this.userId,
-        type_id: typeId,
-        product_name: this.productName,
-        product_price: this.productPrice,
-        product_spec: this.productSpec,
-        product_enable: this.productEnable
-      };
-      return result;
-    } catch (err) {
-      throw err;
-    }
+const create = async (user) => {
+  const query = `INSERT INTO user SET ?`;
+  const params = [user];
+  try {
+    const result = await poolQuery(query, params);
+    return result;
+  } catch (err) {
+    throw err;
   }
+};
 
-  async validate() {
-    if (!isNotEmpty(this.productId))
-      throw new HttpError("麻煩提供 productId", 409);
-    if (!isNotEmpty(this.userId))
-      throw new HttpError("麻煩提供 userId", 409);
-    if (!isNotEmpty(this.productType))
-      throw new HttpError("麻煩提供 productType", 409);
-    if (!isString(this.productType))
-      throw new HttpError("productType 需為字串", 409);
-    if (!isNotEmpty(this.productName))
-      throw new HttpError("麻煩提供 productName", 409);
-    if (!isString(this.productName))
-      throw new HttpError("productName 需為字串", 409);
-    if (!isNotEmpty(this.productPrice))
-      throw new HttpError("麻煩提供 productPrice", 409);
-    if (!isInt(this.productPrice))
-      throw new HttpError("productPrice 需為整數", 409);
-    if (!isNotEmpty(this.productSpec))
-      throw new HttpError("麻煩提供 productSpec", 409);
-    if (!isString(this.productSpec))
-      throw new HttpError("productSpec 需為字串", 409);
-    if (!isNotEmpty(this.productEnable))
-      throw new HttpError("麻煩提供 productEnable", 409);
-    if (!isInt(this.productEnable))
-      throw new HttpError("productEnable 需為整數", 409);
+const update = async (userId, user) => {
+  const query = `UPDATE user SET ? WHERE user_id = ?`;
+  const params = [user, userId];
+  try {
+    const result = await poolQuery(query, params);
+    return result;
+  } catch (err) {
+    throw err;
   }
-}
+};
 
-module.exports = { ProductDTO };
+const isExist = async (userId) => {
+  const query = `SELECT COUNT(*) AS count FROM user WHERE user_id = ?`;
+  const params = [userId];
+  try {
+    const result = await poolQuery(query, params);
+    return result[0].count > 0;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getStoreName = async (userId) => {
+  const query = `SELECT store_name FROM user WHERE user_id = ?`;
+  const params = [userId];
+  try {
+    const result = await poolQuery(query, params);
+    return result[0].store_name;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { getById, create, update, isExist, getStoreName };

@@ -2,7 +2,7 @@ const { poolQuery } = require("../utils/mariadb");
 const { v4: uuidv4 } = require("uuid");
 
 const getAll = async () => {
-  const query = `SELECT product_id, product_name, type_name, product_price FROM product p JOIN type t ON p.type_id=t.type_id`;
+  const query = `SELECT product_id, product_name, product_spec, type_name, product_price FROM product p JOIN type t ON p.type_id=t.type_id`;
   try {
     const result = await poolQuery(query);
     return result;
