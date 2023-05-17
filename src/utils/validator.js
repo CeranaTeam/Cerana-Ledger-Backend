@@ -1,7 +1,7 @@
 const emailValidator = require("email-validator");
 
 const isNotEmpty = (value) => {
-  return value !== undefined && value !== null && value !== "";
+  return value !== undefined && value !== null && value !== "" && value !== [];
 };
 
 const isEmail = (value) => {
