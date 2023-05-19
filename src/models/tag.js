@@ -11,6 +11,17 @@ const getAll = async (userId) => {
   }
 };
 
+const gettagIdByName = async (tag_name) => {
+  const query = `SELECT tag_id FROM tag WHERE tag_name = ?`;
+  const params = [tag_name];
+  try {
+    const result = await poolQuery(query, params);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const create = async (tag) => {
   const query = `INSERT INTO tag SET ?`;
   const params = [tag];
@@ -51,4 +62,4 @@ const isExist = async (userId, tagId, tagName) => {
   }
 };
 
-module.exports = { getAll, create, remove, isExist };
+module.exports = { getAll, gettagIdByName, create, remove, isExist };

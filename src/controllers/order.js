@@ -73,7 +73,7 @@ const createOrder = async (req,res) => {
 
     let totalPrice = 0; 
     for (const product of productList) {   
-      const productIsExist = await productModel.isExist(userId,product.productId,product.productName);
+      const productIsExist = await productModel.isExistById(product.productId, userId);
       if (!productIsExist) {
         res.status(409).json({ message: "訂單中商品不存在" });
         return;

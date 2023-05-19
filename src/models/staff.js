@@ -77,6 +77,17 @@ const isExist = async (userId, staffId, staffName) => {
   }
 };
 
+const getStaffIdByName = async (userId, staffName) => {
+  const query = "SELECT staff_id FROM staff WHERE user_id = ? AND staff_name = ?";
+  const params = [userId, staffName];
+  try {
+    const result = await poolQuery(query, params);
+    return result[0].staff_id;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const isExistName = async (userId, staffId, staffName) => {
   const query =
     "SELECT COUNT(*) AS count FROM staff WHERE user_id = ? AND staff_id != ? AND staff_name = ?";
@@ -92,6 +103,7 @@ const isExistName = async (userId, staffId, staffName) => {
 module.exports = {
   getAll,
   getById,
+  getStaffIdByName,
   create,
   update,
   remove,
