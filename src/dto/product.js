@@ -15,21 +15,17 @@ class ProductDTO {
   }
 
   async toSQL() {
-    try {
-      const typeId = await createType(this.productType, this.userId);
-      const result = {
-        product_id: this.productId,
-        user_id: this.userId,
-        type_id: typeId,
-        product_name: this.productName,
-        product_price: this.productPrice,
-        product_spec: this.productSpec,
-        product_enable: this.productEnable
-      };
-      return result;
-    } catch (err) {
-      throw err;
-    }
+    const typeId = await createType(this.productType, this.userId);
+    const result = {
+      product_id: this.productId,
+      user_id: this.userId,
+      type_id: typeId,
+      product_name: this.productName,
+      product_price: this.productPrice,
+      product_spec: this.productSpec,
+      product_enable: this.productEnable
+    };
+    return result;
   }
 
   async validate() {
