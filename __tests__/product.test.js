@@ -100,6 +100,8 @@ describe('/product test', () => {
         productList: expect.any(Array)
       });
 
+      expect(response.body.productList.length).toBeGreaterThan(0);
+
       response.body.productList.forEach(product => {
         expect(product).toMatchObject({
           productId: expect.any(String),
@@ -189,6 +191,11 @@ describe('/product test', () => {
       expect(response.headers['content-type']).toEqual(
         expect.stringContaining('application/json')
       );
+      
+      const productQueryResult = (await global.connection.query('SELECT * FROM product WHERE product_id = ?', productId))[0];
+      console.log("productQueryResult");
+      console.log(productQueryResult);
+      expect(productQueryResult.length).toBe(0);
     });
   });
 
