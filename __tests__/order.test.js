@@ -7,11 +7,6 @@ const FirebaseMock = require("./utils/firebase.mock.js")
 
 let postorderId;
 let deleteorderId;
-function wait(seconds) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, seconds * 1000);
-    });
-  }  
 const dbConfig = {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT || 3306,
@@ -64,9 +59,7 @@ describe('/order test', () => {
             `;
             const values = [deleteorderId, userId, staffId, 0, 'orderNote', '2022-07-17 09:48:18', 1];                  
             const orderUpdateResult = await global.connection.query(query, values);
-            console.log(orderUpdateResult)
-            await wait(3);
-        }
+            console.log(orderUpdateResult)}
     });
     
     afterEach(async () => {
@@ -166,8 +159,6 @@ describe('/order test', () => {
             expect(response.headers['content-type']).toEqual(
                 expect.stringContaining('application/json')
             );
-            await wait(3);
-            
             expect(response.body).toHaveProperty('orderId');
             postorderId = response.body.orderId
             console.log("this is orderId",postorderId);
@@ -182,6 +173,8 @@ describe('/order test', () => {
             const response = await request(app).delete(`/order/${deleteorderId}`);
             expect(response.statusCode).toBe(200);
             console.log("this is affect rows", response.affectedRows)
+            const deleteOrder = (await global.connection.query('SELECT * FROM `order` WHERE order_id = ?', deleteorderId))[0];
+            expect(deleteOrder.length).toEqual(0);
         });
 
     })

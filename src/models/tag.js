@@ -11,7 +11,7 @@ const getAll = async (userId) => {
   }
 };
 
-const gettagIdByName = async (tag_name) => {
+const getTagIdByName = async (tag_name) => {
   const query = `SELECT tag_id FROM tag WHERE tag_name = ?`;
   const params = [tag_name];
   try {
@@ -62,4 +62,4 @@ const isExist = async (userId, tagId, tagName) => {
   }
 };
 
-module.exports = { getAll, gettagIdByName, create, remove, isExist };
+module.exports = { getAll, getTagIdByName, create, remove, isExist };

@@ -14,9 +14,10 @@ const getAll = async (userId) => {
 const create = async (order) => {
   const query = `INSERT INTO \`order\` SET ?`;
   const params = [order];
+  const orderId = order.order_id;
   try {
     const result = await poolQuery(query, params);
-    return result;
+    return {result, orderId};
   } catch (err) {
     throw err;
   }

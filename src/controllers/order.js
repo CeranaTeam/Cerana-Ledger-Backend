@@ -126,13 +126,11 @@ const createOrder = async (req,res) => {
     };
     const orderDTO = plainToClass(OrderDTO, order);
     await orderDTO.validate();
-    const orderSQL = orderDTO.toSQL();
+    const orderSQL = await orderDTO.toSQL();
     const result = await orderModel.create(orderSQL);
-    await result;
-    const orderId = orderDTO.orderId;
-    if (result.affectedRows === 1) {
-      res.status(200).json({ message: "成功新增訂單", orderId: orderId });
-    } else {
+    console.log(result);
+    const orderId = result.orderId;
+    if (result.result.affectedRows === 0){
       res.status(409).json({ message: "新增訂單失敗" });
     }
     //create order_product
@@ -143,7 +141,7 @@ const createOrder = async (req,res) => {
         amount: product.amount
       };
       const orderproductDTO = plainToClass(Order_productDTO, order_product);
-      const orderproductSQL = orderproductDTO.toSQL();
+      const orderproductSQL = await orderproductDTO.toSQL();
       await orderModel.createOrderproduct(orderproductSQL);
     }
     //create order_dicount
@@ -153,24 +151,30 @@ const createOrder = async (req,res) => {
         discountId: discount.discountId,
       };
       const orderdiscountDTO = plainToClass(Order_discountDTO, order_discount);
-      const orderdiscountSQL = orderdiscountDTO.toSQL();
+      const orderdiscountSQL = await orderdiscountDTO.toSQL();
       await orderModel.createOrderdiscount(orderdiscountSQL);
     }
     //create order_tag
     for (const tag of tagList) {
-      const tagId = await tagModel.gettagIdByName(tag);
+      const tagId = await tagModel.getTagIdByName(tag);
       const order_tag={
         orderId: orderId,
         tagId: tagId[0].tag_id,
       };
       const ordertagDTO = plainToClass(Order_tagDTO, order_tag);
-      const ordertagSQL = ordertagDTO.toSQL();
+      const ordertagSQL = await ordertagDTO.toSQL();
       await orderModel.createOrdertag(ordertagSQL);
+    }
+    if (result.result.affectedRows === 1) {
+      res.status(200).json({ message: "成功新增訂單", orderId: orderId });
+    } else {
+      res.status(409).json({ message: "新增訂單失敗" });
     }
   } catch (err) {
     console.error("\n********** Create order Error **********\n", err);
     res.status(err.status || 500).json({ message: err.message });
   }
+    
 };
 
 const deleteOrder = async (req, res) => {
