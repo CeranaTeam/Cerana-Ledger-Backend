@@ -189,7 +189,7 @@ const deleteOrder = async (req, res) => {
     }
     const result = await orderModel.remove(userId, orderId);
     if (result.affectedRows === 1) {
-      res.status(200).json({ message: "成功刪除訂單紀錄" });
+      res.status(200).json({ message: "成功刪除訂單紀錄", affectedRows:1 });
     } else {
       res.status(409).json({ message: "刪除訂單紀錄失敗" });
     }

@@ -69,6 +69,11 @@ describe('/order test', () => {
           //console.log("this is affect rows", orderDeleteresult.affectedRows)
           expect(orderDeleteresult.affectedRows).toBeGreaterThan(0);
         }
+        if(expect.getState().currentTestName === "/order test DELETE /order respond with JSON with 200"){
+            const orderDeleteresult = (await global.connection.query('DELETE FROM `order` WHERE order_id = ?', deleteorderId))[0];          
+            //console.log("this is affect rows", orderDeleteresult.affectedRows)
+            expect(orderDeleteresult.affectedRows).toBe(0);
+          }
         // Teardown code after each test
         await global.db.teardown(global.userId);
       });
@@ -171,8 +176,7 @@ describe('/order test', () => {
         test('responds with JSON with 200', async () => {
             console.log(`/order/${deleteorderId}`);
             const response = await request(app).delete(`/order/${deleteorderId}`);
-            expect(response.affectedRows).toBe(1);;
-            console.log("this is affect rows", response.affectedRows)
+            expect(response.statusCode).toBe(200);
             const deleteOrder = (await global.connection.query('SELECT * FROM `order` WHERE order_id = ?', deleteorderId))[0];
             expect(deleteOrder.length).toEqual(0);
         });
