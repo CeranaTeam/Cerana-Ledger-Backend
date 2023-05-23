@@ -171,7 +171,7 @@ describe('/order test', () => {
         test('responds with JSON with 200', async () => {
             console.log(`/order/${deleteorderId}`);
             const response = await request(app).delete(`/order/${deleteorderId}`);
-            expect(response.statusCode).toBe(200);
+            expect(response.affectedRows).toBe(1);;
             console.log("this is affect rows", response.affectedRows)
             const deleteOrder = (await global.connection.query('SELECT * FROM `order` WHERE order_id = ?', deleteorderId))[0];
             expect(deleteOrder.length).toEqual(0);
