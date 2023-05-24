@@ -14,12 +14,8 @@ const getAll = async (userId) => {
 const getTagIdByName = async (tag_name) => {
   const query = `SELECT tag_id FROM tag WHERE tag_name = ?`;
   const params = [tag_name];
-  try {
-    const result = await poolQuery(query, params);
-    return result;
-  } catch (err) {
-    throw err;
-  }
+  const result = await poolQuery(query, params);
+  return result;
 };
 
 const create = async (tag) => {
