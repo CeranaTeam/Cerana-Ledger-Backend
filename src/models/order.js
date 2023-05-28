@@ -8,6 +8,7 @@ const getAll = async (userId) => {
     return result;
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -20,6 +21,7 @@ const create = async (order) => {
     return {result, orderId};
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -31,6 +33,7 @@ const remove = async (userId, orderId) => {
     return result;
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -44,6 +47,7 @@ const isExist = async (userId, orderId) => {
     return result[0].count > 0;
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -55,6 +59,7 @@ const getOrdertag = async (orderId) => {
     return result;
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -66,6 +71,7 @@ const createOrdertag = async (tag) => {
     return result;
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -77,6 +83,7 @@ const getOrderproduct = async (orderId) => {
     return result;
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -88,6 +95,7 @@ const createOrderproduct = async (product) => {
     return result;
   } catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -99,6 +107,7 @@ const getOrderdiscount = async (orderId) => {
     return result;
   }catch(err){
     console.log(err);
+    throw err;
   }
 };
 
@@ -110,6 +119,7 @@ const createOrderdiscount = async (discount) => {
     return result;
   }catch(err){
     console.log(err);
+    throw err;
   }
 };
 
