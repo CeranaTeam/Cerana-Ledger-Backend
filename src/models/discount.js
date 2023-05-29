@@ -7,7 +7,7 @@ const getAll = async (userId) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -18,7 +18,7 @@ const create = async (discount) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -29,7 +29,7 @@ const remove = async (userId, discountId) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -47,7 +47,7 @@ const isExist = async (userId, discountId, discountName) => {
     const result = await poolQuery(query, params);
     return result[0].count > 0;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
