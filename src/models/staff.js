@@ -7,7 +7,7 @@ const getAll = async (userId) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -20,7 +20,7 @@ const getById = async (userId, staffId) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -31,7 +31,7 @@ const create = async (staff) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -42,7 +42,7 @@ const update = async (staff) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -53,7 +53,7 @@ const remove = async (userId, staffId) => {
     const result = await poolQuery(query, params);
     return result;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
@@ -73,7 +73,18 @@ const isExist = async (userId, staffId, staffName) => {
     const result = await poolQuery(query, params);
     return result[0].count > 0;
   } catch (err) {
-    throw err;
+    console.log(err);
+  }
+};
+
+const getStaffIdByName = async (userId, staffName) => {
+  const query = "SELECT staff_id FROM staff WHERE user_id = ? AND staff_name = ?";
+  const params = [userId, staffName];
+  try{
+    const result = await poolQuery(query, params);
+    return result[0].staff_id;
+  }catch(err){
+    console.log(err);
   }
 };
 
@@ -85,13 +96,14 @@ const isExistName = async (userId, staffId, staffName) => {
     const result = await poolQuery(query, params);
     return result[0].count > 0;
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 
 module.exports = {
   getAll,
   getById,
+  getStaffIdByName,
   create,
   update,
   remove,
