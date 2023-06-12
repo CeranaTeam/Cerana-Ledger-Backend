@@ -10,7 +10,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 }, 'test');
 
-const FIREBASE_API_KEY = "AIzaSyAiavyY50N2MiF9Zwl4R6em6dp_ZOeWn7M";
+const FIREBASE_API_KEY = "AIzaSyAUUfQM2CSEAB3vxNqyoY0N7CWtvGG2I7U";
 
 class FirebaseMock {
   async createIdTokenfromCustomToken(uid, email){

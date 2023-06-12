@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { auth } = require("../middleware/auth");
+
 
     
 
@@ -31,9 +31,9 @@ const { auth } = require("../middleware/auth");
  *     tags:
  *       - Greetings
  */
-router.get("/", auth, function(req, res) {
+router.get("/", function(req, res) {
 
-  console.log("req middleware userId", req.middleware.userId);
+  //console.log("req middleware userId", req.middleware.userId);
   const user = req.query.user;
   res.status(200).json({
     "message":`this is the test of ${user}`
