@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const { auth } = require("../middleware/auth");
 
     
 
@@ -39,5 +39,13 @@ router.get("/", function(req, res) {
     "message":`this is the test of ${user}`
   });
 });
+
+router.get("/auth", auth, function(req, res) {
+  console.log("req middleware userId", req.middleware.userId);
+  res.status(200).json({
+    "message":`this is the test of ${req.middleware.userId}`
+  });
+
+})
 
 module.exports = router;
