@@ -38,17 +38,18 @@ app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
 // disable cors for those domains
-const cors = require("cors")({
-  origin: [
-    "https://ceranapos.ebg.tw",
-    "https://ceranapos.web.app",
-    "https://pos.cerana.tech",
-    "https://ledger.cerana.tech",
-    "http://localhost:5173",
-  ],
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-  allowedHeaders: ["Content-Type", "Authorization"],
-});
+// const cors = require("cors")({
+//   // origin: [
+//   //   "https://ceranapos.ebg.tw",
+//   //   "https://ceranapos.web.app",
+//   //   "https://pos.cerana.tech",
+//   //   "https://ledger.cerana.tech",
+//   //   "http://localhost:5173",
+//   // ],
+//   // methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+//   // allowedHeaders: ["Content-Type", "Authorization"],
+// });
+const cors = require("cors")();
 app.use(cors);
 
 // view engine setup
