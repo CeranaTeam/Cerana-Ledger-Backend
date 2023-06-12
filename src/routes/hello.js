@@ -31,7 +31,7 @@ const { auth } = require("../middleware/auth");
  *     tags:
  *       - Greetings
  */
-router.get("/", auth, function(req, res) {
+router.get("/", function(req, res) {
 
   console.log("req middleware userId", req.middleware.userId);
   const user = req.query.user;
