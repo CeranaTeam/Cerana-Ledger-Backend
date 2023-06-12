@@ -10,7 +10,7 @@ console.log(serviceAccount)
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-});
+}, "test");
 
 const FIREBASE_API_KEY = "AIzaSyAUUfQM2CSEAB3vxNqyoY0N7CWtvGG2I7U";
 
