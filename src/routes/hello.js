@@ -46,6 +46,6 @@ router.get("/auth", auth, function(req, res) {
     "message":`this is the test of ${req.middleware.userId}`
   });
 
-})
+});
 
 module.exports = router;
