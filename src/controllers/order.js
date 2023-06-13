@@ -79,7 +79,8 @@ const createOrder = async (req,res) => {
         return;
       }
       else{
-        totalPrice += product.productPrice*product.amount;
+        console.log("productPrice:", product.productPrice, "amount:", product.amount);
+        totalPrice = totalPrice + product.productPrice*product.amount;
       }
     }
     console.log(totalPrice);
