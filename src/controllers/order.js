@@ -110,8 +110,10 @@ const createOrder = async (req,res) => {
         const result = await tagModel.create(tagSQL);
         if (result.affectedRows === 1) {
           res.status(200).json({ message: "成功新增標籤" });
+          return;
         } else {
           res.status(409).json({ message: "新增標籤失敗" });
+          return;
         }
       }
     }
@@ -132,6 +134,7 @@ const createOrder = async (req,res) => {
     const orderId = result.orderId;
     if (result.result.affectedRows === 0){
       res.status(409).json({ message: "新增訂單失敗" });
+      return;
     }
     //create order_product
     for (const product of productList) {   
@@ -167,8 +170,10 @@ const createOrder = async (req,res) => {
     }
     if (result.result.affectedRows === 1) {
       res.status(200).json({ message: "成功新增訂單", orderId: orderId });
+      return;
     } else {
       res.status(409).json({ message: "新增訂單失敗" });
+      return;
     }
   } catch (err) {
     console.error("\n********** Create order Error **********\n", err);
