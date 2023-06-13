@@ -29,7 +29,7 @@ class FirebaseMock {
         },
         json: true,
       });
-      console.log(res);
+      //console.log(res);
       // using res.data.idToken
 
   
