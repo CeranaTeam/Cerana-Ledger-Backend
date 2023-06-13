@@ -5,6 +5,6 @@ const discountController = require("../controllers/discount");
 
 router.get("/", auth, discountController.getDiscountList);
 router.post("/", auth, discountController.createDiscount);
-router.delete("/", auth, discountController.deleteDiscount);
+router.delete("/:discountId", auth, discountController.deleteDiscount);
 
 module.exports = router;

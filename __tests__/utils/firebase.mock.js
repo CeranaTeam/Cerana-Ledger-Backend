@@ -38,7 +38,9 @@ class FirebaseMock {
       return res.data.idToken;
   
     } catch (e) {
-      console.log(e);
+
+      console.log(e.message);
+
     }
   }
   
