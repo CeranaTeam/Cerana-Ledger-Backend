@@ -100,7 +100,7 @@ const updateStaff = async (req, res) => {
 
 const deleteStaff = async (req, res) => {
   const { userId } = req.middleware;
-  const { staffId } = req.body;
+  const { staffId } = req.params;
   try {
     const staffIsExist = await staffModel.isExist(userId, staffId);
     if (!staffIsExist) {
