@@ -64,7 +64,7 @@ const createDiscount = async (req, res) => {
 
 const deleteDiscount = async (req, res) => {
   const { userId } = req.middleware;
-  const { discountId } = req.body;
+  const { discountId } = req.params;
   try {
     const discountIsExist = await discountModel.isExist(userId, discountId);
     if (!discountIsExist) {
